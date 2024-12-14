@@ -5,9 +5,9 @@ import random
 
 @dag(
     start_date = datetime(2024,1,1), 
-    schedule = "@0daily",
-    cathup = True, 
-    tags = ["Task 1"]
+    schedule = "@daily",
+    catchup = False, 
+    tags = ["task_1"]
 )
 
 def task_1():
@@ -19,8 +19,9 @@ def task_1():
     @task
     def even_odd(value):
         if not value%2:
-            return "Even"
-        return "odd"
+            print("Even")
+        else:
+            print("odd")
     
     even_odd(rand_numb())
 
