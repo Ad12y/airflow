@@ -25,7 +25,7 @@ def _store_prices(stock, symbol):
     data = json.dumps(stock, ensure_ascii=False).encode('utf8')
     objw = client.put_object(
         bucket_name = bucket_name,
-        object_name = f'{symbol}/prices.josn', 
+        object_name = f'{symbol}/prices.json', 
         data = BytesIO(data), 
         length = len(data)
     )
