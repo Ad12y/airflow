@@ -12,14 +12,15 @@ def _get_stock_prices(url, symbol):
 def _store_prices(stock, symbol):
     minio = BaseHook.get_connection('minio')
     client = Minio(
-        endpoint = minio['endpoint_url'].split("//")[1],
-        access_key = minio['aws_access_key_id'],
-        secret_key = minio['aws_secret_access_key'], 
+        endpoint = minio.extra_dejson['endpoint_url'].split("//")[1],
+        access_key = minio.login,
+        secret_key = minio.password, 
         secure = False
     )
     bucket_name = 'stock-market'
     if not client.bucket_exists(bucket_name):
         client.make_bucket(bucket_name)
+    stock = json.loads(stock)
     symbol = stock['meta']['symbol']
     data = json.dumps(stock, ensure_ascii=False).encode('utf8')
     objw = client.put_object(
